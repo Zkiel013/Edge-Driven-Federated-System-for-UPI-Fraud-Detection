@@ -5,7 +5,8 @@ from imblearn.over_sampling import SMOTE, RandomOverSampler
 import requests
 from tensorflow.keras import layers, models, optimizers, regularizers, callbacks
 
-SERVER_URL = "http://127.0.0.1:5000"
+#SERVER_URL = "http://127.0.0.1:5000"
+SERVER_URL = "ec2-15-207-112-181.ap-south-1.compute.amazonaws.com:5000"
 CLIENT_ID = 0   
 DATA_PATH = "../dataset/client1_dataset.csv" 
 NUM_ROUNDS = 5
