@@ -1,104 +1,15 @@
-Here is your Edge-Driven Federated System project formatted exactly like the Election Prediction System template you provided.
-
-Markdown
-# Edge-Driven Federated System for UPI Fraud Detection
-
-A privacy-preserving machine learning framework deployed on AWS EC2 that detects fraudulent UPI transactions using Federated Learning. By decentralizing the training process, transaction data remains on the edge device, and only model updates are shared.
-
-## Project Structure
-
-client/
-├── client1.py
-├── client2.py
-└── requirements.txt
-server/
-├── server.py
-└── requirements.txt
-images/
-├── architecture.png
-└── roc_curve.png
-
-
-## Features
-
-- Privacy-preserving edge-driven model training
-- Federated Learning using the FedAvg algorithm
-- Machine Learning-based prediction of fraudulent UPI transactions
-- Handles highly imbalanced financial datasets
-- AWS EC2 deployment simulating a real-world distributed network
-- Secure client-server communication using Flask
-
-## Tech Stack
-
-| Tech             | Description                       |
-|------------------|------------------------------------|
-| Python 3         | Core programming language         |
-| TensorFlow       | ML model building and training    |
-| Flask            | Central server communication API  |
-| Scikit-Learn     | Data preprocessing and metrics    |
-| AWS EC2          | Cloud infrastructure deployment   |
-| Imbalanced-Learn | Handling skewed dataset classes   |
-
-## Setup Instructions
-
-### 1. Clone the repository
-
-```bash
-git clone [https://github.com/Zkiel013/Edge-Driven-Federated-System-for-UPI-Fraud-Detection.git](https://github.com/Zkiel013/Edge-Driven-Federated-System-for-UPI-Fraud-Detection.git)
+Edge-Driven Federated System for UPI Fraud Detection | Date: November 19, 2025   1. Introduction1.1 Project Overview
+This document describes the deployment of a federated learning system for UPI fraud detection on AWS EC2 infrastructure. The system uses distributed machine learning to train models across multiple edge nodes while preserving data privacy.   1.2 System Architecture
+The deployment consists of three main components:   Central Server: Coordinates federated learning and aggregates model updates   Edge Clients (2): Train local models on distributed datasets   Architecture Diagram:   [ --- Space for Pic 1: System Architecture Diagram --- ]2. AWS Infrastructure Setup2.1 EC2 Instance ConfigurationInstance Specifications:   ParameterValueAMIUbuntu 24.04 LTSInstance TypeT3.microvCPUs2RAM2 GBStorage8 GB EBSNumber of Instances3 (1 server + 2 clients)2.2 Security Group ConfigurationInbound Rules:   SERVER:   TypePortSourceSSH220.0.0.0/0Custom TCP50000.0.0.0/0CLIENT:   TypePortSourceSSH220.0.0.0/03. Installation and ConfigurationStep 1: Connect to EC2 Instance ssh -i key.pem ubuntu@<ip> or in aws UI, select instance running and click connect.   Step 2: Install Dependencies   Bashsudo apt-get install git -y
+sudo apt update
+sudo apt install -y python3 python3-pip
+  Step 3: Setup Virtual Environment   Bashsudo apt install -y python3-venv
+python3 -m venv venv
+source venv/bin/activate
+pip install --upgrade pip
+  Server: pip install flask numpy pandas scikit-learn tensorflow   Client: pip install numpy pandas scikit-learn imbalanced-learn tensorflow requests   Step 4: Clone Repository   Bashgit clone https://github.com/Zkiel013/Edge-Driven-Federated-System-for-UPI-Fraud-Detection
 cd Edge-Driven-Federated-System-for-UPI-Fraud-Detection
-2. Install dependencies
-For server:
-
-Bash
-cd server
-pip install flask numpy pandas scikit-learn tensorflow
-For client:
-
-Bash
-cd client
-pip install numpy pandas scikit-learn imbalanced-learn tensorflow requests
-3. Set up environment configurations
-Open the client scripts (client1.py and client2.py) and update the SERVER_URL to point to your server's public IP address:
-
-Python
-# Inside client scripts
-SERVER_URL = "http://<Server-Public-IP>:5000"
-4. Run the app
-Bash
-# In one terminal (Central Server)
-cd server
+  Step 5: UPDATE THE SERVER_URL IN CLIENTS Update: SERVER_URL = <Public IP address of the server instance>   4. System Execution4.1 Running the Server On server instance run the cmd:   Bashcd server
 python3 server.py
-
-# In another terminal (Client 1 Node)
-cd client
-python3 client1.py
-
-# In a third terminal (Client 2 Node)
-cd client
-python3 client2.py
-App will communicate over:
-
-Server Port: 5000
-
-ML Model
-5-layer Multi-Layer Perceptron (MLP) architecture
-
-Model trained locally on client nodes with private data (98.5% legitimate, 1.5% fraudulent)
-
-Weight aggregation using Federated Averaging (FedAvg) over multiple rounds
-
-Optimized using Adam Optimizer and Binary Cross-Entropy loss
-
-Evaluated using AUC-ROC, Precision, and Weighted Recall
-
-🖼️ Project Screenshots
-Contributing
-Fork the repository
-
-Create a new branch
-
-Commit your changes
-
-Push to your branch
-
-Create a Pull Request
+  [ --- Space for Pic 2: Flask Development Server Running (Terminal Output) --- ]4.2 Running Client Nodes On client instance run the cmd:   Bashcd client
+  Client 1 (separate ssh console): python3 client1.py   [ --- Space for Pic 3: Client 1 Terminal Output (Starting Round 1) --- ]Client 2 (separate ssh console): python3 client2.py   [ --- Space for Pic 4: Client 2 Terminal Output (Starting Round 1) --- ]4.3 Training Process   [ --- Space for Pic 5: Server Log showing "Sent initial global weights to a client" --- ]Client fetches initial global weights   [ --- Space for Pic 6: Server Log showing Received weights and Aggregated Round 0 --- ]The server performs weight aggregation at the end of each round.   5. Results and Performance5.1 Dataset Information   MetricValueTotal transactions10,000Fraudulent (class 1)150 (1.5%)Legitimate (class 0)9850(98.5%)Features52Training data per client10,000Test data10,0005.2 Model Performance Final model metrics after 5 federated rounds:   [ --- Space for Pic 7: Terminal Output showing Final Performance Classification Report --- ]MetricValue (weighted avg)Accuracy97.98%Precision97.01%Recall97.98%F1-Score97.49%Training Time5 minutesCommunication Rounds~57. ConclusionSummary Successfully deployed an edge-driven federated learning system on AWS EC2. 
